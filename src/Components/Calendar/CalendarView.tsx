@@ -2,6 +2,9 @@ import { useState } from "react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import CalendarGenerator from "./CalendarGenerator";
 import AppointmentView from "../Appointment/AppointmentView";
+import { useNavigate } from 'react-router-dom';
+import useIsMobile from "../hooks/useIsMobile";
+import MobileCalendar from "./MobileCalendar";
 
 
 const CalendarView = () => {
@@ -14,6 +17,9 @@ const CalendarView = () => {
     const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
     const [selectedDate, setSelectedDate] = useState<SelectedDate|null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const navigate = useNavigate();
+    const isMobile = useIsMobile();
 
     interface SelectedDate {
         day: number;
@@ -35,18 +41,22 @@ const CalendarView = () => {
         <div className="min-h-screen  transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
                 <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center  space-x-4">
                         <ThemeToggle />
                         <div className="hidden sm:block w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
                     </div>
                     
-                    <div className="text-center">
+                    <div className="text-center mx-auto">
                         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                             Book Appointments
                         </h1>
                         <p className="text-black dark:text-gray-400 mt-2 text-sm sm:text-base">
                             Schedule and manage your calendar events
                         </p>
+                    </div>
+
+                    <div className="flex justify-end items-end">
+                        <button onClick={()=>{navigate('/login')} } className="border-1 rounded-lg  px-6 py-2 font-bold ">Logout</button>
                     </div>
                     
                     <div className="w-20 sm:w-24"></div>
@@ -79,7 +89,12 @@ const CalendarView = () => {
                     </div>
                     <div className="p-2">
                         <div className="min-h-[400px] sm:min-h-[390px]">
-                            <CalendarGenerator year={year} month={selectedMonth} onDateClick={handleDateClick}/>
+                        {isMobile ? (
+                            <MobileCalendar year={year} month={selectedMonth} onDateClick={handleDateClick} />
+                            ) : (
+                            <CalendarGenerator year={year} month={selectedMonth} onDateClick={handleDateClick} />
+                            )}
+
                         </div>
                     </div>
                 </div>
@@ -121,6 +136,7 @@ const CalendarView = () => {
                 </div>
             </div>
             <AppointmentView isOpen={isModalOpen} onClose={handleCloseModal} selectedDate={selectedDate} monthNames={monthNames}/>
+            
         </div>
     );
 };

@@ -40,7 +40,6 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
     }
     
     const handleSave = ()=>{
-
         if (!doctor || !patient || !time || !selectedDate) {
           enqueueSnackbar("Please complete all fields before saving.", { variant: "error" });
           return;
@@ -64,8 +63,7 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
           existingData.push({
             date: dateKey,
             appointments: [newAppointment],
-          })
-          enqueueSnackbar("Appointment Added!", { variant: "success" })
+          });
         }
 
 
