@@ -24,19 +24,27 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
     const [doctor , setDoctor] = useState("")
     const [patient , setPatient] = useState("")
     const [time, setTime] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
+    const [editIndex, setEditIndex] = useState<number | null>(null);
 
     const { enqueueSnackbar } = useSnackbar();
 
-
-
     const dateKey = `${selectedDate.year}-${selectedDate.month + 1}-${selectedDate.day}`
 
+    const handleEdit = (index:number,appt:any)=>{
+      setDoctor(appt.doctor)
+      setPatient(appt.patient)
+      setTime(appt.time)
+      setEditIndex(index)
+      setIsEditing(true)
+    }
+    
     const handleSave = ()=>{
+
         if (!doctor || !patient || !time || !selectedDate) {
           enqueueSnackbar("Please complete all fields before saving.", { variant: "error" });
           return;
         }
-
 
         const newAppointment = { doctor,patient,time }
 
@@ -45,17 +53,34 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
         const existingDateEntry = existingData.find((entry: any) => entry.date === dateKey);
 
         if (existingDateEntry) {
-          existingDateEntry.appointments.push(newAppointment);
+          if(isEditing && editIndex !== null){
+            existingDateEntry.appointments[editIndex] = newAppointment
+            enqueueSnackbar("Appointment updated!", { variant: "success" })
+          }else{
+            existingDateEntry.appointments.push(newAppointment);
+            enqueueSnackbar("Appointment Added!", { variant: "success" })
+          }
         } else {
           existingData.push({
             date: dateKey,
             appointments: [newAppointment],
-          });
+          })
+          enqueueSnackbar("Appointment Added!", { variant: "success" })
         }
+
 
         localStorage.setItem('appointments',JSON.stringify(existingData))
         onClose()
-        window.location.reload();
+
+        setDoctor("");
+        setPatient("");
+        setTime("");
+        setEditIndex(null);
+        setIsEditing(false);
+
+        setTimeout(()=>{     
+          window.location.reload();
+        },1000)
     }
 
   return (
@@ -108,7 +133,7 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
         </div>
         <div className="">
           <div className="flex items-center p-4">
-            < AppointmentList date={dateKey}/>
+            < AppointmentList date={dateKey} onEdit={handleEdit}/>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import CalendarGenerator from "./CalendarGenerator";
 import AppointmentView from "../Appointment/AppointmentView";
@@ -30,13 +30,6 @@ const CalendarView = () => {
         setIsModalOpen(false);
         setSelectedDate(null);
     };
-
-    useEffect(()=>{
-
-        
-        const existingData = JSON.parse(localStorage.getItem("appointments") || "[]");
-        console.log('exx',existingData);   
-    },[])
 
     return (
         <div className="min-h-screen  transition-all duration-300">
