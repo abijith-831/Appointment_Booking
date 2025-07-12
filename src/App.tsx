@@ -1,12 +1,12 @@
-
+import { SnackbarProvider } from 'notistack';
 import './App.css'
 import CalendarView from './Components/Calendar/CalendarView'
 
 const App = () => {
   return (
-    <div>
+    <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
       <CalendarView/>
-    </div>
+    </SnackbarProvider>
   )
 }
 
