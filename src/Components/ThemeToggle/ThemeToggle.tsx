@@ -11,12 +11,7 @@ const ThemeToggle = () => {
 
   return (
     <div>
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleToggle}
-        className="rounded-full bg-red-500 border-2 border-black hover:transition-transform duration-300 hover:scale-110 dark:border-white"
-      >
+      <Button variant="outline" size="icon" onClick={handleToggle} className="rounded-full border-2 hover:transition-transform duration-300 hover:scale-110" >
         {theme === 'light' ? (
           <FaMoon className="h-5 w-5" />
         ) : (
