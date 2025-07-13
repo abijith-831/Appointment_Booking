@@ -11,8 +11,8 @@ const Login = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const hardcodedEmail = '1';
-    const hardcodedPassword = '1';
+    const hardcodedEmail = 'staff@clinic.com';
+    const hardcodedPassword = '123456';
 
     if (email === hardcodedEmail && password === hardcodedPassword) {
       localStorage.setItem('isAuthenticated', 'true');
