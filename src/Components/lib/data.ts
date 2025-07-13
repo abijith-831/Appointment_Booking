@@ -1,20 +1,23 @@
+
+
 // data.js
 
 export const doctors = [
-    { id: 1, name: "Dr. John Smith" },
-    { id: 2, name: "Dr. Emily Adams" },
-    { id: 3, name: "Dr. Daniel Lee" },
-    { id: 4, name: "Dr. Sarah Patel" },
-    { id: 5, name: "Dr. Michael Brown" },
-  ];
-  
-  export const patients = [
-    { id: 1, name: "Alice Johnson" },
-    { id: 2, name: "Bob Williams" },
-    { id: 3, name: "Catherine Green" },
-    { id: 4, name: "David Miller" },
-    { id: 5, name: "Eva Thompson" },
-  ];
+  { id: 1, name: "Dr. Anoop Nair" },
+  { id: 2, name: "Dr. Lakshmi Menon" },
+  { id: 3, name: "Dr. Vivek Krishnan" },
+  { id: 4, name: "Dr. Revathi Suresh" },
+  { id: 5, name: "Dr. Manu Varghese" },
+];
+
+export const patients = [
+  { id: 1, name: "Arya Rajan" },
+  { id: 2, name: "Rahul Das" },
+  { id: 3, name: "Neha Kurian" },
+  { id: 4, name: "Jithin Mathew" },
+  { id: 5, name: "Anjali Joseph" },
+];
+
   
 
   export const timeSlots = [
