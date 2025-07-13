@@ -62,31 +62,35 @@ const CalendarView = () => {
                     <div className="w-20 sm:w-24"></div>
                 </div>
 
-                <div className="bg-gray-100  backdrop-blur-sm rounded-2xl p-3 border-1 shadow-2xl border-gray-200/50 dark:border-gray-700/50 transition-transform hover:scale-101 duration-300 mb-4">
-                    <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <div className="flex gap-3">
-                            <select  value={selectedMonth}   onChange={(e) => setSelectedMonth(Number(e.target.value))}   className="rounded-xl px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
-                                {monthNames.map((item, index) => (
-                                    <option key={index} value={index}>{item}</option>
-                                ))}
-                            </select>    
-                            <select  value={year}  onChange={(e) => setYear(Number(e.target.value))}  className="rounded-xl px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
-                                {years.map((yr) => (
-                                    <option key={yr} value={yr}>{yr}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                {!isMobile ? 
+                                <div className="bg-gray-100  backdrop-blur-sm rounded-2xl p-3 border-1 shadow-2xl border-gray-200/50 dark:border-gray-700/50 transition-transform hover:scale-101 duration-300 mb-4">
+                                <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                                    <div className="flex gap-3">
+                                        <select  value={selectedMonth}   onChange={(e) => setSelectedMonth(Number(e.target.value))}   className="rounded-xl px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                                            {monthNames.map((item, index) => (
+                                                <option key={index} value={index}>{item}</option>
+                                            ))}
+                                        </select>    
+                                        <select  value={year}  onChange={(e) => setYear(Number(e.target.value))}  className="rounded-xl px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                                            {years.map((yr) => (
+                                                <option key={yr} value={yr}>{yr}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                : ''}
 
                 <div className="bg-gray-100 backdrop-blur-sm rounded-2xl shadow-2xl border-1  border-gray-200/50 dark:border-gray-700/50 overflow-hidden transition-transform hover:scale-101 duration-300">
+{!isMobile ?
                     <div className="grid grid-cols-7 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700 dark:to-gray-800 border-b border-gray-200 dark:border-gray-600">
-                        {daysOfWeek.map((day, index) => (
-                            <div key={index} className="py-2 text-center font-semibold text-gray-700 dark:text-gray-300 text-sm sm:text-base">
-                                {day}
-                            </div>
-                        ))}
-                    </div>
+                    {daysOfWeek.map((day, index) => (
+                        <div key={index} className="py-2 text-center font-semibold text-gray-700 dark:text-gray-300 text-sm sm:text-base">
+                            {day}
+                        </div>
+                    ))}
+                </div>
+:''}
                     <div className="p-2">
                         <div className="min-h-[400px] sm:min-h-[390px]">
                         {isMobile ? (
