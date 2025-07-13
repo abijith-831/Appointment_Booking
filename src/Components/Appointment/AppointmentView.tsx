@@ -76,6 +76,9 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
         setEditIndex(null);
         setIsEditing(false);
 
+        setTimeout(()=>{     
+          window.location.reload();
+        },1000)
     }
 
   return (
