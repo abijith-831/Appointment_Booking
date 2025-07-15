@@ -4,6 +4,7 @@ import AppointmentList from "./AppointmentList";
 import { useSnackbar } from 'notistack';
 
 
+
 interface SelectedDate {
     day: number;
     month: number;
@@ -46,6 +47,11 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
         }
 
         const newAppointment = { doctor,patient,time }
+
+        console.log('lap',newAppointment);
+        console.log('timelap',dateKey);
+        
+        
 
         const existingData = JSON.parse(localStorage.getItem("appointments") || "[]");
 
@@ -119,7 +125,7 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
                             {timeSlots.map((slot, index) => (
                             <option key={index} value={slot}>{slot}</option>))}
                         </select>
-                        </div>
+                    </div>
                     </div>
                 </div>
             {/* Modal Footer */}

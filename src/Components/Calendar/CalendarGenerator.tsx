@@ -31,7 +31,7 @@ for (let day = 1; day <= totalDays; day++) {
     <div
       key={day}
       onClick={() => onDateClick(day, month, year)}
-      className="relative w-full h-20 border-1 border-gray-300 bg-white hover:bg-gray-100 text-black hover:transition-transform hover:scale-105 duration-300 dark:border-gray-500 p-2 cursor-pointer"
+      className="relative w-full h-20 border-1 gap-4 rounded-sm border-gray-300 bg-white hover:bg-gray-100 text-black hover:transition-transform hover:scale-105 duration-300 dark:border-gray-500 p-2 cursor-pointer"
     >
       {/* Day Number - TOP LEFT */}
       <span className="absolute top-1 left-1 text-sm font-semibold text-black">
@@ -51,7 +51,7 @@ for (let day = 1; day <= totalDays; day++) {
 
     
   
-    return <div className="grid grid-cols-7 ">{days}</div>;
+    return <div className="grid grid-cols-7 gap-x-2 gap-y-2 ">{days}</div>;
   };
   
   export default CalendarGenerator;

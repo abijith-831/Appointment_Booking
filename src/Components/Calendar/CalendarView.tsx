@@ -56,7 +56,7 @@ const CalendarView = () => {
                     </div>
 
                     <div className="flex justify-end items-end">
-                        <button onClick={()=>{navigate('/login')} } className="border-1 rounded-lg  px-6 py-2 font-bold ">Logout</button>
+                        <button onClick={()=>{navigate('/login')} } className="border-1 rounded-lg  px-6 py-2 font-bold hover:transition-transform hover:bg-red-400 duration-300 hover:scale-105">Logout</button>
                     </div>
                     
                     <div className="w-20 sm:w-24"></div>
@@ -82,7 +82,7 @@ const CalendarView = () => {
                 : ''}
 
                 <div className="bg-gray-100 backdrop-blur-sm rounded-2xl shadow-2xl border-1  border-gray-200/50 dark:border-gray-700/50 overflow-hidden transition-transform hover:scale-101 duration-300">
-{!isMobile ?
+                {!isMobile ?
                     <div className="grid grid-cols-7 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700 dark:to-gray-800 border-b border-gray-200 dark:border-gray-600">
                     {daysOfWeek.map((day, index) => (
                         <div key={index} className="py-2 text-center font-semibold text-gray-700 dark:text-gray-300 text-sm sm:text-base">
@@ -90,7 +90,7 @@ const CalendarView = () => {
                         </div>
                     ))}
                 </div>
-:''}
+                :''}
                     <div className="p-2">
                         <div className="min-h-[400px] sm:min-h-[390px]">
                         {isMobile ? (
@@ -102,42 +102,45 @@ const CalendarView = () => {
                         </div>
                     </div>
                 </div>
+                {!isMobile ? 
+                                <div className="mt-8 flex fitems-center justify-center gap-4 sm:gap-6">
+                                <button 
+                                    onClick={() => {
+                                        if(selectedMonth === 0) {
+                                            setSelectedMonth(11);
+                                            setYear((prev) => prev - 1);
+                                        } else {
+                                            setSelectedMonth((prev) => prev - 1);
+                                        }
+                                    }} 
+                                    className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0" >
+                                    <span className="text-blue-500 group-hover:text-blue-600 transition-colors duration-200">←</span>
+                                    <span className="font-medium text-gray-700 dark:text-gray-300">Previous</span>
+                                </button>
+            
+                                <div className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 border border-blue-200/50 dark:border-blue-500/30">
+                                    <h2 className="font-bold text-lg text-black">
+                                        {monthNames[selectedMonth]} - {year}
+                                    </h2>
+                                </div>
+            
+                                <button 
+                                    onClick={() => {
+                                        if(selectedMonth === 11) {
+                                            setSelectedMonth(0);
+                                            setYear((prev) => prev + 1);
+                                        } else {
+                                            setSelectedMonth((prev) => prev + 1);
+                                        }
+                                    }} 
+                                    className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0" >
+                                    <span className="font-medium text-gray-700 dark:text-gray-300">Next</span>
+                                    <span className="text-blue-500 group-hover:text-blue-600 transition-colors duration-200">→</span>
+                                </button>
+                            </div>:''
+                }
 
-                <div className="mt-8 flex fitems-center justify-center gap-4 sm:gap-6">
-                    <button 
-                        onClick={() => {
-                            if(selectedMonth === 0) {
-                                setSelectedMonth(11);
-                                setYear((prev) => prev - 1);
-                            } else {
-                                setSelectedMonth((prev) => prev - 1);
-                            }
-                        }} 
-                        className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0" >
-                        <span className="text-blue-500 group-hover:text-blue-600 transition-colors duration-200">←</span>
-                        <span className="font-medium text-gray-700 dark:text-gray-300">Previous</span>
-                    </button>
 
-                    <div className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 border border-blue-200/50 dark:border-blue-500/30">
-                        <h2 className="font-bold text-lg text-black">
-                            {monthNames[selectedMonth]} - {year}
-                        </h2>
-                    </div>
-
-                    <button 
-                        onClick={() => {
-                            if(selectedMonth === 11) {
-                                setSelectedMonth(0);
-                                setYear((prev) => prev + 1);
-                            } else {
-                                setSelectedMonth((prev) => prev + 1);
-                            }
-                        }} 
-                        className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0" >
-                        <span className="font-medium text-gray-700 dark:text-gray-300">Next</span>
-                        <span className="text-blue-500 group-hover:text-blue-600 transition-colors duration-200">→</span>
-                    </button>
-                </div>
             </div>
             <AppointmentView isOpen={isModalOpen} onClose={handleCloseModal} selectedDate={selectedDate} monthNames={monthNames}/>
             
