@@ -87,6 +87,33 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
         },1000)
     }
 
+    const handleDelete = (index: number) => {
+      const existingData = JSON.parse(localStorage.getItem("appointments") || "[]");
+      const dateEntryIndex = existingData.findIndex((entry: any) => entry.date === dateKey);
+    
+      if (dateEntryIndex !== -1) {
+        const appointmentList = existingData[dateEntryIndex].appointments;
+    
+        // Remove the appointment at given index
+        appointmentList.splice(index, 1);
+    
+        // If no appointments left for the date, remove the date entry entirely
+        if (appointmentList.length === 0) {
+          existingData.splice(dateEntryIndex, 1);
+        }
+    
+        localStorage.setItem("appointments", JSON.stringify(existingData));
+        enqueueSnackbar("Appointment deleted!", { variant: "success" });
+    
+        // Optionally close modal or refresh
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      } else {
+        enqueueSnackbar("Failed to delete appointment.", { variant: "error" });
+      }
+    };
+    
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-lg  flex items-center justify-center z-50 p-4">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -137,7 +164,7 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
         </div>
         <div className="">
           <div className="flex items-center p-4">
-            < AppointmentList date={dateKey} onEdit={handleEdit}/>
+            < AppointmentList date={dateKey} onEdit={handleEdit} onDelete={handleDelete}/>
           </div>
         </div>
 

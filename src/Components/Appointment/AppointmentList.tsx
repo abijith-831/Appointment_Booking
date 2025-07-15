@@ -1,9 +1,10 @@
 interface AppointmentListProps{
   date:string;
   onEdit:(index:number , data:any)=>void
+  onDelete:(index:number)=>void
 }
 
-const AppointmentList = ({ date ,onEdit}: AppointmentListProps) => {
+const AppointmentList = ({ date ,onEdit , onDelete}: AppointmentListProps) => {
 
   const storedAppointments = JSON.parse(localStorage.getItem('appointments') || "[]");
 
@@ -37,7 +38,7 @@ const AppointmentList = ({ date ,onEdit}: AppointmentListProps) => {
               </div>
               <div className="flex gap-4">
                 <button onClick={()=>onEdit(index,appt)}  className="bg-blue-400 transition-transform hover:scale-105 duration-300  border-1 rounded-sm px-6 py-1"> Edit</button>
-                <button  className="bg-red-400 transition-transform hover:scale-105 duration-300 border-1 rounded-sm px-6 py-1" > Delete </button>
+                <button  onClick={()=>onDelete(index) } className="bg-red-400 transition-transform hover:scale-105 duration-300 border-1 rounded-sm px-6 py-1" > Delete </button>
               </div>
             </div>
 
