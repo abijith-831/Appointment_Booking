@@ -103,6 +103,30 @@ const MobileCalendar = ({ year, month  }: CalendarGeneratorProps) => {
     },1000)
 
   }
+
+  const handleDelete = (index: number) => {
+    const key = getDateKey(selectedDate);
+    const existingData = JSON.parse(localStorage.getItem("appointments") || "[]");
+    const dateEntryIndex = existingData.findIndex((entry: any) => entry.date === key);
+  
+    if (dateEntryIndex !== -1) {
+      const appointmentList = existingData[dateEntryIndex].appointments;
+
+      appointmentList.splice(index, 1);
+  
+      if (appointmentList.length === 0) {
+        existingData.splice(dateEntryIndex, 1);
+      }
+  
+      localStorage.setItem("appointments", JSON.stringify(existingData));
+      enqueueSnackbar("Appointment deleted!", { variant: "success" });
+
+      loadAppointments(selectedDate);
+    } else {
+      enqueueSnackbar("Failed to delete appointment.", { variant: "error" });
+    }
+  };
+  
   
 
   return (
@@ -165,7 +189,7 @@ const MobileCalendar = ({ year, month  }: CalendarGeneratorProps) => {
             </div>
             <div className="flex gap-4">
               <button   className="bg-blue-400 transition-transform hover:scale-105 duration-300  border-1 rounded-sm px-6 py-1"> Edit</button>
-              <button  className="bg-red-400 transition-transform hover:scale-105 duration-300 border-1 rounded-sm px-6 py-1" > Delete </button>
+              <button onClick={()=>handleDelete(index)}  className="bg-red-400 transition-transform hover:scale-105 duration-300 border-1 rounded-sm px-6 py-1" > Delete </button>
             </div>
           </div>
 

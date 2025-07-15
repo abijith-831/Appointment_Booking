@@ -94,10 +94,8 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
       if (dateEntryIndex !== -1) {
         const appointmentList = existingData[dateEntryIndex].appointments;
     
-        // Remove the appointment at given index
         appointmentList.splice(index, 1);
     
-        // If no appointments left for the date, remove the date entry entirely
         if (appointmentList.length === 0) {
           existingData.splice(dateEntryIndex, 1);
         }
@@ -105,7 +103,6 @@ const AppointmentView = ({ isOpen, onClose, selectedDate, monthNames }:Appointme
         localStorage.setItem("appointments", JSON.stringify(existingData));
         enqueueSnackbar("Appointment deleted!", { variant: "success" });
     
-        // Optionally close modal or refresh
         setTimeout(() => {
           window.location.reload();
         }, 500);
